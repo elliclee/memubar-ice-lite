@@ -2,6 +2,9 @@
     <img src="Ice/Assets.xcassets/AppIcon.appiconset/icon_256x256.png" width=160 height=160>
     <h1>Ice Lite</h1>
     <p>A modernized, lightweight, and compact menu bar manager for macOS 14+</p>
+    <p>
+        <b>English</b> | <a href="README_ZH.md">简体中文</a>
+    </p>
 </div>
 
 **Ice Lite** is a simplified, highly optimized, and visually modernized fork of the excellent open-source project [jordanbaird/Ice](https://github.com/jordanbaird/Ice). 
