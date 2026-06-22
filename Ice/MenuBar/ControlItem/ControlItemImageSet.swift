@@ -8,13 +8,9 @@
 /// An image set contains images for a control item in both the hidden and visible states.
 struct ControlItemImageSet: Codable, Hashable, Identifiable {
     enum Name: String, Codable, Hashable {
-        case arrow = "Arrow"
-        case chevron = "Chevron"
-        case door = "Door"
         case dot = "Dot"
         case ellipsis = "Ellipsis"
         case iceCube = "Ice Cube"
-        case sunglasses = "Sunglasses"
         case custom = "Custom"
     }
 
@@ -46,19 +42,9 @@ extension ControlItemImageSet {
     /// The image sets that the user can choose to display in the Ice icon.
     static let userSelectableIceIcons = [
         ControlItemImageSet(
-            name: .arrow,
-            hidden: .symbol("arrowshape.left.fill"),
-            visible: .symbol("arrowshape.right.fill")
-        ),
-        ControlItemImageSet(
-            name: .chevron,
-            hidden: .symbol("chevron.left"),
-            visible: .symbol("chevron.right")
-        ),
-        ControlItemImageSet(
-            name: .door,
-            hidden: .symbol("door.left.hand.closed"),
-            visible: .symbol("door.left.hand.open")
+            name: .iceCube,
+            hidden: .catalog("IceCubeStroke"),
+            visible: .catalog("IceCubeFill")
         ),
         ControlItemImageSet(
             name: .dot,
@@ -69,16 +55,6 @@ extension ControlItemImageSet {
             name: .ellipsis,
             hidden: .catalog("EllipsisFill"),
             visible: .catalog("EllipsisStroke")
-        ),
-        ControlItemImageSet(
-            name: .iceCube,
-            hidden: .catalog("IceCubeStroke"),
-            visible: .catalog("IceCubeFill")
-        ),
-        ControlItemImageSet(
-            name: .sunglasses,
-            hidden: .symbol("sunglasses.fill"),
-            visible: .symbol("sunglasses")
         ),
     ]
 }

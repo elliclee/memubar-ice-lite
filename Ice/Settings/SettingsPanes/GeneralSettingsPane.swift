@@ -103,7 +103,7 @@ struct GeneralSettingsPane: View {
                         )
                     }
                 default:
-                    Image(nsImage: nsImage)
+                    Image(nsImage: nsImage.resized(to: CGSize(width: 16, height: 16)))
                 }
             }
         }
