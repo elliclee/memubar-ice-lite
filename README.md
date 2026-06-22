@@ -13,13 +13,14 @@ The goal of this fork is to create an extremely streamlined, single-purpose util
 
 ---
 
-## ❄️ Key Differences & Optimizations
+## ❄️ Key Differences & Technical Upgrades
 
-* **Dependency-Free Core**: Removed fuzzy search engines and the Sparkle auto-update framework, reducing app complexity and eliminating external SPM packages.
-* **Streamlined Settings UI**: Consolidated settings into four clean panes: General, Menu Bar Layout, Menu Bar Appearance, and About (removed complex Hotkeys and Advanced settings panels).
-* **Modernized Typography & Spacing**: Made all window metrics, layout elements, and text sizes compact. Fits natively and beautifully alongside macOS Sonoma & Sequoia designs.
-* **Redesigned Permissions Flow**: Replacing standard dialogs with a modern, compact, and card-based onboarding view that guides users through Accessibility and Screen Recording options.
-* **Brand Assets**: Custom 3D crystal glass ice cube application icon and matching minimalist menu bar indicators.
+* **Zero External Dependencies**: Fully removed the Sparkle auto-update framework and the Ifrit fuzzy search engine. The codebase is now 100% native Swift/SwiftUI with zero external packages, reducing compile time and lowering binary footprint.
+* **Unified Preferences State**: Consolidated settings parameters from the redundant `AdvancedSettingsManager` directly into `GeneralSettingsManager`. Subscriptions and listeners to `UserDefaults` are now handled in a single unified preference manager, reducing reactive overhead.
+* **Modern SwiftUI Windowing**: Upgraded `SettingsWindow` and `PermissionsWindow` scenes to utilize macOS 14+ native `.windowResizability(.contentSize)` and custom sizing specifications.
+* **Pixel-Perfect Sidebar Layout**: Replaced generic `Label` sidebar cells with structured `HStack` views in `SettingsView` to bypass macOS list-style extraction, ensuring exact `16x16` icon sizing and alignment.
+* **Async/Await Permission Workflow**: Refactored permission request checks to use Swift modern concurrency model (`async/await` and `CheckedContinuation`) instead of traditional GCD-based polling, making asynchronous state changes cleaner and thread-safe.
+* **Modernized Aesthetics**: Replaced the bulky onboarding flow with a compact, card-based window (420px wide) featuring system materials, continuous squircle shapes, and custom status indicator pills.
 
 ---
 

@@ -13,13 +13,14 @@
 
 ---
 
-## ❄️ 核心区别与优化
+## ❄️ 核心区别与技术升级
 
-* **无依赖核心**：移除了模糊搜索引擎和 Sparkle 自动更新框架，降低了应用复杂度，消除了外部 Swift Package Manager (SPM) 依赖包。
-* **精简的设置界面**：将设置精简为四个清爽的面板：通用 (General)、菜单栏布局 (Menu Bar Layout)、菜单栏外观 (Menu Bar Appearance) 以及关于 (About)。移除了原有的快捷键 (Hotkeys) 和高级设置 (Advanced) 面板。
-* **现代化排版与间距**：优化并缩小了所有窗口度量、布局元素和字体字号，能更完美地契合 macOS Sonoma 和 Sequoia 的精致设计。
-* **重新设计的授权面板**：用现代、紧凑的卡片式引导界面代替了原先臃肿的弹窗，轻松引导用户完成辅助功能 (Accessibility) 和屏幕录制 (Screen Recording) 权限的授予。
-* **全新品牌视觉**：包含量身定制的 3D 水晶玻璃冰块应用图标，以及相匹配的极简菜单栏控制图标。
+* **零外部依赖 (Zero-Dependency)**：完全移除了 Sparkle 自动更新框架以及 Ifrit 模糊搜索引擎。整个项目回归到 100% 原生 Swift/SwiftUI 代码，大幅缩短了编译时间，降低了安装包和内存体积。
+* **统一的偏好设置状态管理**：废弃了冗余的 `AdvancedSettingsManager`，将所有偏好设置逻辑合并到单例的 `GeneralSettingsManager` 中。对 `UserDefaults` 的订阅与监听全部集中处理，消除了潜在的响应冲突。
+* **现代化 SwiftUI 窗口管理**：升级了 `SettingsWindow` 与 `PermissionsWindow` 场景，全面拥抱 macOS 14+ 原生的 `.windowResizability(.contentSize)` 动态视图自适应机制。
+* **像素级侧边栏布局**：在侧边栏中采用自定义 `HStack` 替代默认的 `Label` 组件，成功绕过了 macOS 侧边栏对图标的强制拉伸，实现了像素级精确对齐（`16x16`）。
+* **异步授权工作流 (Async/Await)**：将授权等待逻辑重构为基于 Swift 现代并发模型（`async/await` 与 `CheckedContinuation`）的异步工作流，取代了传统复杂的 GCD 轮询，使异步状态管理更加安全且线程安全。
+* **精简极致的视觉美学**：重构了原先庞大的授权弹窗，使用 420px 宽度且包含系统磨砂材质、连续圆角和自定义状态徽章卡片的极简界面。
 
 ---
 
