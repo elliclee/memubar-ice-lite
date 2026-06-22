@@ -17,27 +17,16 @@ struct PermissionsView: View {
         }
     }
 
-    private var continueButtonForegroundStyle: some ShapeStyle {
-        if case .hasRequiredPermissions = permissionsManager.permissionsState {
-            AnyShapeStyle(.yellow)
-        } else {
-            AnyShapeStyle(.primary)
-        }
-    }
-
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 16) {
             headerView
-                .padding(.vertical)
 
-            explanationView
             permissionsGroupStack
 
             footerView
-                .padding(.vertical)
         }
-        .padding(.horizontal)
-        .fixedSize()
+        .padding(20)
+        .frame(width: 420)
         .readWindow { window in
             guard let window else {
                 return
@@ -57,37 +46,31 @@ struct PermissionsView: View {
 
     @ViewBuilder
     private var headerView: some View {
-        Label {
-            Text("Permissions")
-                .font(.system(size: 36))
-        } icon: {
-            if let nsImage = NSImage(named: NSImage.applicationIconName) {
+        VStack(spacing: 12) {
+            if let nsImage = NSImage(named: "AppIcon") {
                 Image(nsImage: nsImage)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 75, height: 75)
+                    .frame(width: 56, height: 56)
+                    .shadow(color: Color.black.opacity(0.12), radius: 6, x: 0, y: 3)
             }
-        }
-    }
 
-    @ViewBuilder
-    private var explanationView: some View {
-        IceSection {
-            VStack {
-                Text("Ice needs permission to manage the menu bar.")
-                Text("Absolutely no personal information is collected or stored.")
-                    .bold()
-                    .foregroundStyle(.red)
+            VStack(spacing: 4) {
+                Text("Welcome to Ice Lite")
+                    .font(.system(size: 18, weight: .bold, design: .rounded))
+
+                Text("Ice Lite needs permission to manage your menu bar.\nNo personal data is ever collected or stored.")
+                    .font(.system(size: 11.5))
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
             }
-            .padding()
         }
-        .font(.title3)
-        .padding(.bottom, 10)
+        .padding(.top, 4)
     }
 
     @ViewBuilder
     private var permissionsGroupStack: some View {
-        VStack(spacing: 7.5) {
+        VStack(spacing: 10) {
             ForEach(permissionsManager.allPermissions) { permission in
                 permissionBox(permission)
             }
@@ -96,21 +79,22 @@ struct PermissionsView: View {
 
     @ViewBuilder
     private var footerView: some View {
-        HStack {
+        HStack(spacing: 12) {
             quitButton
             continueButton
         }
-        .controlSize(.large)
+        .controlSize(.regular)
     }
 
     @ViewBuilder
     private var quitButton: some View {
-        Button {
+        Button(role: .cancel) {
             NSApp.terminate(nil)
         } label: {
             Text("Quit")
                 .frame(maxWidth: .infinity)
         }
+        .keyboardShortcut(.cancelAction)
     }
 
     @ViewBuilder
@@ -125,33 +109,48 @@ struct PermissionsView: View {
         } label: {
             Text(continueButtonText)
                 .frame(maxWidth: .infinity)
-                .foregroundStyle(continueButtonForegroundStyle)
         }
+        .buttonStyle(.borderedProminent)
         .disabled(permissionsManager.permissionsState == .missingPermissions)
+        .keyboardShortcut(.defaultAction)
     }
 
     @ViewBuilder
     private func permissionBox(_ permission: Permission) -> some View {
-        IceSection {
-            VStack(spacing: 10) {
-                Text(permission.title)
-                    .font(.title)
-                    .underline()
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 12) {
+                Image(systemName: permission.hasPermission ? "checkmark.circle.fill" : "circle.dotted")
+                    .font(.system(size: 20, weight: .medium))
+                    .foregroundStyle(permission.hasPermission ? Color.green : Color.secondary.opacity(0.6))
+                    .frame(width: 24, height: 24)
 
-                VStack(spacing: 0) {
-                    Text("Ice needs this to:")
-                        .font(.title3)
-                        .bold()
+                VStack(alignment: .leading, spacing: 3) {
+                    HStack(spacing: 6) {
+                        Text(permission.title)
+                            .font(.system(size: 13, weight: .bold))
+                            .foregroundStyle(.primary)
 
-                    VStack(alignment: .leading) {
+                        Text(permission.isRequired ? "Required" : "Optional")
+                            .font(.system(size: 9, weight: .semibold))
+                            .padding(.horizontal, 5)
+                            .padding(.vertical, 1.5)
+                            .background(
+                                Capsule()
+                                    .fill(permission.isRequired ? Color.red.opacity(0.12) : Color.blue.opacity(0.12))
+                            )
+                            .foregroundStyle(permission.isRequired ? Color.red.opacity(0.9) : Color.blue.opacity(0.9))
+                    }
+
+                    VStack(alignment: .leading, spacing: 1) {
                         ForEach(permission.details, id: \.self) { detail in
-                            HStack {
-                                Text("•").bold()
-                                Text(detail)
-                            }
+                            Text("• \(detail)")
+                                .font(.system(size: 10.5))
+                                .foregroundStyle(.secondary)
                         }
                     }
                 }
+
+                Spacer()
 
                 Button {
                     guard let appState = permissionsManager.appState else {
@@ -164,33 +163,40 @@ struct PermissionsView: View {
                         openWindow(id: Constants.permissionsWindowID)
                     }
                 } label: {
-                    if permission.hasPermission {
-                        Text("Permission Granted")
-                            .foregroundStyle(.green)
-                    } else {
-                        Text("Grant Permission")
-                    }
+                    Text(permission.hasPermission ? "Granted" : "Grant")
+                        .font(.system(size: 11, weight: .medium))
+                        .frame(width: 56)
                 }
+                .buttonStyle(.borderedProminent)
+                .tint(permission.hasPermission ? Color.green.opacity(0.15) : Color.blue)
+                .foregroundStyle(permission.hasPermission ? Color.green : Color.white)
                 .allowsHitTesting(!permission.hasPermission)
-
-                if !permission.isRequired {
-                    IceGroupBox {
-                        AnnotationView(
-                            alignment: .center,
-                            font: .callout.bold()
-                        ) {
-                            Label {
-                                Text("Ice can work in a limited mode without this permission.")
-                            } icon: {
-                                Image(systemName: "checkmark.shield")
-                                    .foregroundStyle(.green)
-                            }
-                        }
-                    }
-                }
             }
-            .padding(10)
-            .frame(maxWidth: .infinity)
+            .padding(12)
+
+            if !permission.isRequired && !permission.hasPermission {
+                Divider()
+                    .opacity(0.5)
+                HStack(spacing: 4) {
+                    Image(systemName: "info.circle")
+                        .font(.system(size: 9))
+                        .foregroundStyle(.secondary)
+                    Text("Ice Lite can run in limited mode without this permission.")
+                        .font(.system(size: 9.5))
+                        .foregroundStyle(.secondary)
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+            }
         }
+        .background(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(.regularMaterial)
+                .shadow(color: Color.black.opacity(0.03), radius: 4, x: 0, y: 1)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .strokeBorder(Color.primary.opacity(0.08), lineWidth: 0.5)
+                )
+        )
     }
 }

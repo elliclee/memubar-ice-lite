@@ -68,17 +68,12 @@ extension UserNotificationManager: @preconcurrency UNUserNotificationCenterDeleg
             completionHandler()
         }
 
-        guard let appState else {
+        guard appState != nil else {
             return
         }
 
         switch UserNotificationIdentifier(rawValue: response.notification.request.identifier) {
-        case .updateCheck:
-            guard response.actionIdentifier == UNNotificationDefaultActionIdentifier else {
-                break
-            }
-            appState.updatesManager.checkForUpdates()
-        case nil:
+        default:
             break
         }
     }

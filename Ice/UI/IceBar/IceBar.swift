@@ -314,7 +314,7 @@ private struct IceBarContentView: View {
 
                 Button {
                     closePanel()
-                    appState.navigationState.settingsNavigationIdentifier = .advanced
+                    appState.navigationState.settingsNavigationIdentifier = .general
                     appState.appDelegate?.openSettingsWindow()
                 } label: {
                     Text("Open Ice Settings")

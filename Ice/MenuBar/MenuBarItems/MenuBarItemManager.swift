@@ -1390,7 +1390,7 @@ extension MenuBarItemManager {
                 shownInterfaceWindow: shownInterfaceWindow
             )
             tempShownItemContexts.append(context)
-            runTempShownItemTimer(for: appState.settingsManager.advancedSettingsManager.tempShowInterval)
+            runTempShownItemTimer(for: appState.settingsManager.generalSettingsManager.tempShowInterval)
         }
     }
 

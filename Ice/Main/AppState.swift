@@ -30,9 +30,6 @@ final class AppState: ObservableObject {
     /// Manager for the app's settings.
     private(set) lazy var settingsManager = SettingsManager(appState: self)
 
-    /// Manager for app updates.
-    private(set) lazy var updatesManager = UpdatesManager(appState: self)
-
     /// Manager for user notifications.
     private(set) lazy var userNotificationManager = UserNotificationManager(appState: self)
 
@@ -168,11 +165,6 @@ final class AppState: ObservableObject {
                 self?.objectWillChange.send()
             }
             .store(in: &c)
-        updatesManager.objectWillChange
-            .sink { [weak self] in
-                self?.objectWillChange.send()
-            }
-            .store(in: &c)
 
         cancellables = c
     }
@@ -187,7 +179,6 @@ final class AppState: ObservableObject {
         settingsManager.performSetup()
         itemManager.performSetup()
         imageCache.performSetup()
-        updatesManager.performSetup()
         userNotificationManager.performSetup()
     }
 

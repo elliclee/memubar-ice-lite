@@ -8,8 +8,7 @@ enum HotkeyAction: String, Codable, CaseIterable {
     case toggleHiddenSection = "ToggleHiddenSection"
     case toggleAlwaysHiddenSection = "ToggleAlwaysHiddenSection"
 
-    // Menu Bar Items
-    case searchMenuBarItems = "SearchMenuBarItems"
+
 
     // Other
     case enableIceBar = "EnableIceBar"
@@ -37,12 +36,11 @@ enum HotkeyAction: String, Codable, CaseIterable {
             if !section.isHidden {
                 appState.preventShowOnHover()
             }
-        case .searchMenuBarItems:
-            await appState.menuBarManager.searchPanel.toggle()
+
         case .enableIceBar:
             appState.settingsManager.generalSettingsManager.useIceBar.toggle()
         case .showSectionDividers:
-            appState.settingsManager.advancedSettingsManager.showSectionDividers.toggle()
+            appState.settingsManager.generalSettingsManager.showSectionDividers.toggle()
         case .toggleApplicationMenus:
             appState.menuBarManager.toggleApplicationMenus()
         }

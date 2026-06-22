@@ -1,112 +1,72 @@
 <div align="center">
-    <img src="Ice/Assets.xcassets/AppIcon.appiconset/icon_256x256.png" width=200 height=200>
-    <h1>Ice</h1>
+    <img src="Ice/Assets.xcassets/AppIcon.appiconset/icon_256x256.png" width=160 height=160>
+    <h1>Ice Lite</h1>
+    <p>A modernized, lightweight, and compact menu bar manager for macOS 14+</p>
 </div>
 
-Ice is a powerful menu bar management tool. While its primary function is hiding and showing menu bar items, it aims to cover a wide variety of additional features to make it one of the most versatile menu bar tools available.
+**Ice Lite** is a simplified, highly optimized, and visually modernized fork of the excellent open-source project [jordanbaird/Ice](https://github.com/jordanbaird/Ice). 
 
-![Banner](https://github.com/user-attachments/assets/4423085c-4e4b-4f3d-ad0f-90a217c03470)
+The goal of this fork is to create an extremely streamlined, single-purpose utility focused entirely on essential menu bar management, stripping away redundant modules and external dependencies while introducing a compact, premium native macOS visual language.
 
-[![Download](https://img.shields.io/badge/download-latest-brightgreen?style=flat-square)](https://github.com/jordanbaird/Ice/releases/latest)
-![Platform](https://img.shields.io/badge/platform-macOS-blue?style=flat-square)
-![Requirements](https://img.shields.io/badge/requirements-macOS%2014%2B-fa4e49?style=flat-square)
-[![Sponsor](https://img.shields.io/badge/Sponsor%20%E2%9D%A4%EF%B8%8F-8A2BE2?style=flat-square)](https://github.com/sponsors/jordanbaird)
-[![Website](https://img.shields.io/badge/Website-015FBA?style=flat-square)](https://icemenubar.app)
-[![License](https://img.shields.io/github/license/jordanbaird/Ice?style=flat-square)](LICENSE)
+---
 
-> [!NOTE]
-> Ice is currently in active development. Some features have not yet been implemented. Download the latest release [here](https://github.com/jordanbaird/Ice/releases/latest) and see the roadmap below for upcoming features.
+## ❄️ Key Differences & Optimizations
 
-<a href="https://www.buymeacoffee.com/jordanbaird" target="_blank">
-    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;">
-</a>
+* **Dependency-Free Core**: Removed fuzzy search engines and the Sparkle auto-update framework, reducing app complexity and eliminating external SPM packages.
+* **Streamlined Settings UI**: Consolidated settings into four clean panes: General, Menu Bar Layout, Menu Bar Appearance, and About (removed complex Hotkeys and Advanced settings panels).
+* **Modernized Typography & Spacing**: Made all window metrics, layout elements, and text sizes compact. Fits natively and beautifully alongside macOS Sonoma & Sequoia designs.
+* **Redesigned Permissions Flow**: Replacing standard dialogs with a modern, compact, and card-based onboarding view that guides users through Accessibility and Screen Recording options.
+* **Brand Assets**: Custom 3D crystal glass ice cube application icon and matching minimalist menu bar indicators.
 
-## Install
+---
 
-### Manual Installation
+## 🛠️ Features
 
-Download the "Ice.zip" file from the [latest release](https://github.com/jordanbaird/Ice/releases/latest) and move the unzipped app into your `Applications` folder.
-
-### Homebrew
-
-Install Ice using the following command:
-
-```sh
-brew install --cask jordanbaird-ice
-```
-
-## Features/Roadmap
-
-### Menu bar item management
-
+### Menu Bar Item Management
 - [x] Hide menu bar items
 - [x] "Always-hidden" menu bar section
 - [x] Show hidden menu bar items when hovering over the menu bar
 - [x] Show hidden menu bar items when an empty area in the menu bar is clicked
 - [x] Show hidden menu bar items by scrolling or swiping in the menu bar
 - [x] Automatically rehide menu bar items
-- [x] Hide application menus when they overlap with shown menu bar items
 - [x] Drag and drop interface to arrange individual menu bar items
 - [x] Display hidden menu bar items in a separate bar (e.g. for MacBooks with the notch)
-- [x] Search menu bar items
 - [x] Menu bar item spacing (BETA)
-- [ ] Profiles for menu bar layout
-- [ ] Individual spacer items
-- [ ] Menu bar item groups
-- [ ] Show menu bar items when trigger conditions are met
 
-### Menu bar appearance
-
+### Menu Bar Appearance
 - [x] Menu bar tint (solid and gradient)
 - [x] Menu bar shadow
 - [x] Menu bar border
 - [x] Custom menu bar shapes (rounded and/or split)
-- [ ] Remove background behind menu bar
-- [ ] Rounded screen corners
-- [ ] Different settings for light/dark mode
 
-### Hotkeys
-
-- [x] Toggle individual menu bar sections
-- [x] Show the search panel
-- [x] Enable/disable the Ice Bar
-- [x] Show/hide section divider icons
-- [x] Toggle application menus
-- [ ] Enable/disable auto rehide
-- [ ] Temporarily show individual menu bar items
-
-### Other
-
+### Core Integration
 - [x] Launch at login
-- [x] Automatic updates
-- [ ] Menu bar widgets
+- [x] Fully signed to run locally
 
-## Why does Ice only support macOS 14 and later?
+---
 
-Ice uses a number of system APIs that are available starting in macOS 14. As such, there are no plans to support earlier versions of macOS.
+## 🚀 How to Run Locally
 
-## Gallery
+### Requirements
+* macOS 14.0 or later
+* Xcode 15.0 or later
 
-#### Show hidden menu bar items below the menu bar
+### Build & Run
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/elliclee/memubar-ice-lite.git
+   cd memubar-ice-lite
+   ```
+2. Open `Ice.xcodeproj` in Xcode.
+3. Select the **Ice** scheme and press `Cmd + R` to run, or compile a release version using:
+   ```sh
+   xcodebuild -scheme Ice -configuration Release -destination 'platform=macOS' -derivedDataPath ./build CODE_SIGN_IDENTITY="-" DEVELOPMENT_TEAM=""
+   ```
 
-![Ice Bar](https://github.com/user-attachments/assets/f1429589-6186-4e1b-8aef-592219d49b9b)
+---
 
-#### Drag-and-drop interface to arrange menu bar items
+## 📜 Acknowledgements & License
 
-![Menu Bar Layout](https://github.com/user-attachments/assets/095442ba-f2d0-4bb4-9632-91e26ef8d45b)
+Ice Lite is based on [Ice](https://github.com/jordanbaird/Ice) created by Jordan Baird. We are incredibly grateful for their work.
 
-#### Customize the menu bar's appearance
-
-![Menu Bar Appearance](https://github.com/user-attachments/assets/8c22c185-c3d2-49bb-971e-e1fc17df04b3)
-
-#### Menu bar item search
-
-![Menu Bar Item Search](https://github.com/user-attachments/assets/d1a7df3a-4989-4077-a0b1-8e7d5a1ba5b8)
-
-#### Custom menu bar item spacing
-
-![Menu Bar Item Spacing](https://github.com/user-attachments/assets/b196aa7e-184a-4d4c-b040-502f4aae40a6)
-
-## License
-
-Ice is available under the [GPL-3.0 license](LICENSE).
+Ice Lite is released under the **GPL-3.0 License** (same as the original upstream project). See [LICENSE](LICENSE) for details.

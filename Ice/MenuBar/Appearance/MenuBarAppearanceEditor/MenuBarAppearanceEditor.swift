@@ -37,13 +37,15 @@ struct MenuBarAppearanceEditor: View {
         if case .popover(let closePopover) = location {
             ZStack {
                 Text("Menu Bar Appearance")
-                    .font(.title2)
+                    .font(.system(size: 15, weight: .bold, design: .rounded))
                     .frame(maxWidth: .infinity, alignment: .center)
                 Button("Done", action: closePopover)
-                    .controlSize(.large)
+                    .controlSize(.regular)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            .padding(20)
+            .padding(.horizontal, 20)
+            .padding(.top, 16)
+            .padding(.bottom, 12)
         }
     }
 
@@ -108,7 +110,8 @@ struct MenuBarAppearanceEditor: View {
     @ViewBuilder
     private var cannotEdit: some View {
         Text("Ice cannot edit the appearance of automatically hidden menu bars")
-            .font(.title3)
+            .font(.system(size: 13))
+            .foregroundStyle(.secondary)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
 

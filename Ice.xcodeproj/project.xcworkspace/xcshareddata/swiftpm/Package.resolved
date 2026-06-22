@@ -1,5 +1,5 @@
 {
-  "originHash" : "a7567d11f06745371832127a8ce2132148ef6a89fb55ecc72d6c313b688387fa",
+  "originHash" : "ce3307ebcda6d18294982a702ebdf10ce7f704c679c157efc2716ace0b3a28f3",
   "pins" : [
     {
       "identity" : "axswift",
@@ -20,30 +20,12 @@
       }
     },
     {
-      "identity" : "ifrit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ukushu/Ifrit",
-      "state" : {
-        "revision" : "e610cdf4eddec1e76a9c7ae5db37738c7f73150b",
-        "version" : "2.0.3"
-      }
-    },
-    {
       "identity" : "launchatlogin-modern",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sindresorhus/LaunchAtLogin-Modern",
       "state" : {
         "revision" : "a04ec1c363be3627734f6dad757d82f5d4fa8fcc",
         "version" : "1.1.0"
-      }
-    },
-    {
-      "identity" : "sparkle",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/sparkle-project/Sparkle",
-      "state" : {
-        "revision" : "0ef1ee0220239b3776f433314515fd849025673f",
-        "version" : "2.6.4"
       }
     }
   ],

@@ -162,7 +162,7 @@ extension EventManager {
                 handleShowRightClickMenu()
             } else if
                 NSEvent.modifierFlags == .option,
-                appState.settingsManager.advancedSettingsManager.canToggleAlwaysHiddenSection
+                appState.settingsManager.generalSettingsManager.canToggleAlwaysHiddenSection
             {
                 if let alwaysHiddenSection = appState.menuBarManager.section(withName: .alwaysHidden) {
                     alwaysHiddenSection.toggle()
@@ -256,7 +256,7 @@ extension EventManager {
     private func handleShowRightClickMenu() {
         guard
             let appState,
-            appState.settingsManager.advancedSettingsManager.showContextMenuOnRightClick,
+            appState.settingsManager.generalSettingsManager.showContextMenuOnRightClick,
             isMouseInsideEmptyMenuBarSpace,
             let mouseLocation = MouseCursor.locationAppKit
         else {
@@ -326,7 +326,7 @@ extension EventManager {
         appState.appearanceManager.setIsDraggingMenuBarItem(true)
 
         // Don't continue if the setting to show the sections is disabled.
-        guard appState.settingsManager.advancedSettingsManager.showAllSectionsOnUserDrag else {
+        guard appState.settingsManager.generalSettingsManager.showAllSectionsOnUserDrag else {
             return
         }
 
@@ -363,7 +363,7 @@ extension EventManager {
             return
         }
 
-        let delay = appState.settingsManager.advancedSettingsManager.showOnHoverDelay
+        let delay = appState.settingsManager.generalSettingsManager.showOnHoverDelay
 
         Task {
             if hiddenSection.isHidden {

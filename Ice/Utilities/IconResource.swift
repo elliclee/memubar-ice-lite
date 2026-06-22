@@ -19,6 +19,7 @@ enum IconResource: Hashable {
         image
             .resizable()
             .aspectRatio(contentMode: .fit)
+            .frame(width: 16, height: 16)
     }
 
     /// The image produced by the resource.

@@ -24,7 +24,10 @@ struct MenuBarLayoutSettingsPane: View {
     @ViewBuilder
     private var header: some View {
         Text("Drag to arrange your menu bar items")
-            .font(.title2)
+            .font(.system(size: 13, weight: .medium))
+            .foregroundStyle(.secondary)
+            .padding(.leading, 2)
+            .padding(.bottom, 4)
 
         IceGroupBox {
             AnnotationView(
@@ -52,20 +55,21 @@ struct MenuBarLayoutSettingsPane: View {
     @ViewBuilder
     private var cannotArrange: some View {
         Text("Ice cannot arrange menu bar items in automatically hidden menu bars")
-            .font(.title3)
+            .font(.system(size: 13))
+            .foregroundStyle(.secondary)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
 
     @ViewBuilder
     private var missingScreenRecordingPermission: some View {
-        VStack {
+        VStack(spacing: 12) {
             Text("Menu bar layout requires screen recording permissions")
-                .font(.title2)
+                .font(.system(size: 14, weight: .semibold))
 
             Button {
-                appState.navigationState.settingsNavigationIdentifier = .advanced
+                appState.navigationState.settingsNavigationIdentifier = .general
             } label: {
-                Text("Go to Advanced Settings")
+                Text("Go to General Settings")
             }
             .buttonStyle(.link)
         }

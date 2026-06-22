@@ -281,7 +281,7 @@ final class ControlItem {
                 }
                 .store(in: &c)
 
-            appState.settingsManager.advancedSettingsManager.$showSectionDividers
+            appState.settingsManager.generalSettingsManager.$showSectionDividers
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] shouldShow in
                     guard
@@ -295,7 +295,7 @@ final class ControlItem {
                 }
                 .store(in: &c)
 
-            appState.settingsManager.advancedSettingsManager.$enableAlwaysHiddenSection
+            appState.settingsManager.generalSettingsManager.$enableAlwaysHiddenSection
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] enable in
                     guard
@@ -371,7 +371,7 @@ final class ControlItem {
                 button.isHighlighted = false
                 button.image = nil
             case .showItems:
-                isVisible = appState.settingsManager.advancedSettingsManager.showSectionDividers
+                isVisible = appState.settingsManager.generalSettingsManager.showSectionDividers
                 // Enable the cell, as it may have been previously disabled.
                 button.cell?.isEnabled = true
                 // Set the image based on the section name and the hiding state.
@@ -400,7 +400,7 @@ final class ControlItem {
                 statusItem.showMenu(createMenu(with: appState))
             } else if
                 NSEvent.modifierFlags == .option,
-                appState.settingsManager.advancedSettingsManager.canToggleAlwaysHiddenSection
+                appState.settingsManager.generalSettingsManager.canToggleAlwaysHiddenSection
             {
                 if let alwaysHiddenSection = appState.menuBarManager.section(withName: .alwaysHidden) {
                     alwaysHiddenSection.toggle()
@@ -432,22 +432,6 @@ final class ControlItem {
         settingsItem.keyEquivalentModifierMask = .command
         menu.addItem(settingsItem)
 
-        menu.addItem(.separator())
-
-        let searchItem = NSMenuItem(
-            title: "Search Menu Bar Items",
-            action: #selector(showSearchPanel),
-            keyEquivalent: ""
-        )
-        searchItem.target = self
-        if
-            let hotkey = hotkey(withAction: .searchMenuBarItems),
-            let keyCombination = hotkey.keyCombination
-        {
-            searchItem.keyEquivalent = keyCombination.key.keyEquivalent
-            searchItem.keyEquivalentModifierMask = keyCombination.modifiers.nsEventFlags
-        }
-        menu.addItem(searchItem)
 
         menu.addItem(.separator())
 
@@ -493,15 +477,7 @@ final class ControlItem {
 
         menu.addItem(.separator())
 
-        let checkForUpdatesItem = NSMenuItem(
-            title: "Check for Updates…",
-            action: #selector(checkForUpdates),
-            keyEquivalent: ""
-        )
-        checkForUpdatesItem.target = self
-        menu.addItem(checkForUpdatesItem)
 
-        menu.addItem(.separator())
 
         let quitItem = NSMenuItem(
             title: "Quit Ice",
@@ -520,25 +496,9 @@ final class ControlItem {
     }
 
     /// Opens the menu bar search panel.
-    @objc private func showSearchPanel() {
-        guard
-            let appState,
-            let screen = MenuBarSearchPanel.defaultScreen
-        else {
-            return
-        }
-        Task {
-            await appState.menuBarManager.searchPanel.show(on: screen)
-        }
-    }
 
-    /// Opens the settings window and checks for app updates.
-    @objc private func checkForUpdates() {
-        guard let appState else {
-            return
-        }
-        appState.updatesManager.checkForUpdates()
-    }
+
+
 
     /// Adds the control item to the menu bar.
     func addToMenuBar() {

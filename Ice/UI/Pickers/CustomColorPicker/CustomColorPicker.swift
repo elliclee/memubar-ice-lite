@@ -121,7 +121,7 @@ struct CustomColorPicker: NSViewRepresentable {
             CGSize(width: 33, height: 18)
         case .mini:
             CGSize(width: 29, height: 16)
-        @unknown default:
+        default:
             nsView.intrinsicContentSize
         }
     }

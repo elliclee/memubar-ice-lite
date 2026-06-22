@@ -10,8 +10,7 @@ final class SettingsManager: ObservableObject {
     /// The manager for general settings.
     let generalSettingsManager: GeneralSettingsManager
 
-    /// The manager for advanced settings.
-    let advancedSettingsManager: AdvancedSettingsManager
+
 
     /// The manager for hotkey settings.
     let hotkeySettingsManager: HotkeySettingsManager
@@ -24,7 +23,6 @@ final class SettingsManager: ObservableObject {
 
     init(appState: AppState) {
         self.generalSettingsManager = GeneralSettingsManager(appState: appState)
-        self.advancedSettingsManager = AdvancedSettingsManager(appState: appState)
         self.hotkeySettingsManager = HotkeySettingsManager(appState: appState)
         self.appState = appState
     }
@@ -32,7 +30,6 @@ final class SettingsManager: ObservableObject {
     func performSetup() {
         configureCancellables()
         generalSettingsManager.performSetup()
-        advancedSettingsManager.performSetup()
         hotkeySettingsManager.performSetup()
     }
 
@@ -44,11 +41,7 @@ final class SettingsManager: ObservableObject {
                 self?.objectWillChange.send()
             }
             .store(in: &c)
-        advancedSettingsManager.objectWillChange
-            .sink { [weak self] in
-                self?.objectWillChange.send()
-            }
-            .store(in: &c)
+
         hotkeySettingsManager.objectWillChange
             .sink { [weak self] in
                 self?.objectWillChange.send()
