@@ -102,6 +102,10 @@ struct GeneralSettingsPane: View {
                             in: context.clipBoundingRect
                         )
                     }
+                case .iceCube:
+                    Image(nsImage: nsImage.resized(to: CGSize(width: 24, height: 24)))
+                case .dot, .ellipsis:
+                    Image(nsImage: nsImage.resized(to: CGSize(width: 20, height: 20)))
                 default:
                     Image(nsImage: nsImage.resized(to: CGSize(width: 16, height: 16)))
                 }
